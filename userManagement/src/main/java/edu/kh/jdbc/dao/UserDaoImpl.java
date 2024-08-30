@@ -152,29 +152,33 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public List<User> selectAll(Connection conn) throws Exception {
 		
+		// 결과 저장용 변수 선언 // ArrayList 객체를 만든 이유
+		// SQL얻어올 예정
 		List<User> userList = new ArrayList<User>();
 		
 		try {
 			
 			String sql = prop.getProperty("selectAll");
 			
-			pstmt = conn.prepareStatement(sql);
+			// 강사님이 한 코드
+			// stmt = conn.createStatement();
+			// rs = stmt.executeQuery(sql); 
 			
+			
+			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				int userNo = rs.getInt("USER_NO");
-				String id = rs.getString("USER_ID");
-				String pw = rs.getString("USER_PW");
+				String userId = rs.getString("USER_ID");
+				String userPw = rs.getString("USER_PW");
 				String userName = rs.getString("USER_NAME");
 				String userEnrollDate = rs.getString("ENROLL_DATE");
 				
-				User user = new User(userNo, userEnrollDate, userEnrollDate, userName, userEnrollDate);
+				User user = new User(userNo, userId, userPw, userName, userEnrollDate);
 				
 				userList.add(user);
 			}
-			
-			
 		}finally {
 			close(rs);
 			close(pstmt);
@@ -183,7 +187,158 @@ public class UserDaoImpl implements UserDao{
 		return userList;
 	}
 	
+	@Override
+	public List<User> search(Connection conn, String searchId) throws Exception {
+
+		// ArrayList 객체를 미리 생성하는 이유
+		// == 조회된 결과를 추가(add)해서 묶어 반환하기 위해
+		List<User> userList = new ArrayList<User>();
+		
+try {
+			
+			String sql = prop.getProperty("search");
+			
+			// 강사님이 한 코드
+			// stmt = conn.createStatement();
+			// rs = stmt.executeQuery(sql); 
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId); // '%검색어%'
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int userNo = rs.getInt("USER_NO");
+				String userId = rs.getString("USER_ID");
+				String userPw = rs.getString("USER_PW");
+				String userName = rs.getString("USER_NAME");
+				String userEnrollDate = rs.getString("ENROLL_DATE");
+				
+				User user = new User(userNo, userId, userPw, userName, userEnrollDate);
+				
+				userList.add(user);
+			}
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return userList;
+	}
 	
+	@Override
+	public User selectUser(Connection conn, int userNo) throws Exception {
+		
+		User userOne = null;
+		
+		try {
+			String sql = prop.getProperty("selectUser");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String userId = rs.getString("USER_ID");
+				String userPw = rs.getString("USER_PW");
+				String userName = rs.getString("USER_NAME");
+				String userEnrollDate = rs.getString("ENROLL_DATE");
+				
+				userOne = new User(userNo, userId, userPw, userName, userEnrollDate);
+			}
+			
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return userOne;
+	}
 	
+	/**
+	 *  사용자 삭제
+	 */
+	@Override
+	public int deleteUser(Connection conn, int userNo) throws Exception {
+		
+		// 결과 저장용변수 
+		int result = 0; // 왜 0이냐? 결과 행을 저장할거니까 - delete 결과 행 개수 저장
+		
+		try {
+			String sql = prop.getProperty("deleteUser");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			// DML은 executeUpdate() 호출
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int updateUser(Connection conn, User user) throws Exception {
+
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("updateUser");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user.getUserName());
+			pstmt.setString(2, user.getUserPw());
+			pstmt.setInt(3, user.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public String selectKong(Connection conn, String str) throws Exception {
+		
+		String kong = null;
+		
+		try {
+			String sql = prop.getProperty("selectKong");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, str);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+// 담아갈 값이 담겨있는 변수이름 왼쪽  || 담아가고싶은 내용 or 값 or 결과 오른쪽 
+				kong = rs.getString("USER_NAME");
+				
+			}
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		
+		return kong;
+	}
 	
 }

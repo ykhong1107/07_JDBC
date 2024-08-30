@@ -49,6 +49,56 @@
 				TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')
 					ENROLL_DATE
 			FROM TB_USER
+			ORDER BY USER_NO ASC
 		</entry>
+		
+		<!-- 검색어가 포함된 아이디 정보조회 -->
+		<entry key="search">
+			SELECT
+				USER_NO,
+				USER_ID,
+				USER_PW,
+				USER_NAME,
+				TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')
+					ENROLL_DATE
+			FROM TB_USER
+			WHERE USER_ID LIKE ?
+			ORDER BY USER_NO ASC
+		</entry>
+		
+		<!-- 유저 상세조회 -->
+		<entry key="selectUser">
+		SELECT
+				USER_NO,
+				USER_ID,
+				USER_PW,
+				USER_NAME,
+				TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')
+					ENROLL_DATE
+			FROM TB_USER
+			WHERE USER_NO = ?
+		</entry>
+		
+		<!-- 유저 삭제 -->
+		<entry key="deleteUser">
+		DELETE FROM TB_USER
+		WHERE USER_NO = ?
+		</entry>
+		
+		<!-- 유저 수정 -->
+	  <entry key="updateUser">
+	  UPDATE TB_USER
+		SET USER_NAME = ?, USER_PW = ?
+		WHERE USER_NO = ?
+	  </entry>
+		
+		<!-- 콩순이를 찾아라! -->
+		<entry key="selectKong">
+		SELECT USER_NAME
+		FROM TB_USER
+		WHERE USER_PW LIKE '%' || ? || '%'
+		</entry>
+		
+		
 
 </properties>

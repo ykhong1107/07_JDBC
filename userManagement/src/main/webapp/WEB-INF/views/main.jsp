@@ -6,7 +6,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User 관리 프로젝트</title>
+  
 </head>
+
 <body>
 
   <%-- 로그인이 안되있는경우선이여</h1>
@@ -27,6 +29,15 @@
         <a href="/signUp">사용자 등록</a>
       </div>
       </div>
+    </form>
+
+    <hr>
+
+    <h1>콩순이를 찾아라!!!</h1>
+
+    <form action="/check">
+      <input type="text" name="check">
+      <button>콩순이 확인</button>
     </form>
   </c:if>
 
@@ -68,6 +79,14 @@
 
   <%-- session에 존재하는 message 제거 --%>
   <c:remove var="message" scope="session" />
+</c:if>
+
+<c:if test="${!empty requestScope.kong}" >
+  <script>
+    alert("${kong}");
+  </script>
+
+  <c:remove var="kong" scope="request" />
 </c:if>
 
   <script src="/resources/js/main.js"></script>
