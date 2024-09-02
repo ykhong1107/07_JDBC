@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 
+			driver.xml 파일 : DB 연결정보를 작성하는 외부파일
+			entry : K, V 한쌍을 나타내는 단위
+			<entry key="K"> V </entry>
+	 -->
+	 
+	 <!-- 사용자 등록 -->
+	 <entry key="todoListFullview">
+	 			SELECT * FROM TB_TODO
+	 </entry>
+					
+		
+		
+
+</properties>

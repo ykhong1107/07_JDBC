@@ -310,11 +310,15 @@ try {
 		return result;
 	}
 	
+	
+	
 	@Override
 	public String selectKong(Connection conn, String str) throws Exception {
+		// @Override : 부모클래스 또는 인터페이스의 메서드를 재정의하고 있음을 나타냄
+		// String 타입의 결과를 반환, Connection 객체와 String 타입의 매개변수를 받음
 		
 		String kong = null;
-		
+		// 데이터베이스에서 조회한결과를 저장할 변수, 초기값은 'null'로 설정!!
 		try {
 			String sql = prop.getProperty("selectKong");
 			

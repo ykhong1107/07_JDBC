@@ -72,6 +72,13 @@ public interface UserDao {
 	 */
 	int updateUser(Connection conn, User user) throws Exception;
 
+	/**
+	 * 콩순이를 찾아라
+	 * @param conn
+	 * @param str
+	 * @return
+	 * @throws Exception
+	 */
 	String selectKong(Connection conn, String str) throws Exception;
 	
 	

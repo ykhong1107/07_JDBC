@@ -69,8 +69,19 @@ public interface UserService {
 	 */
 	int updateUser(User user) throws Exception;
 
-	String selectKong(String str) throws Exception;
 	
+	/**
+	 * 콩순이를 찾아라
+	 * @param str
+	 * @return 
+	 * @throws Exception
+	 */
+	String selectKong(String str) throws Exception;
+	// 메서드 반환타입('String') -> 이 메서드가 문자열을 반환할 것
+	// 메서드 이름 = selectKong 가 메서드 이름이므로 일반적으로 "KONG"이라는 값을 선택하거나 조회함
+	// String Str은 메서드가 입력으로 받는 매개변수임
+	// 'str'이라는 이름의 문자열 값을 메서드에 전달함
+	// 이 매개변수는 메서드 내부에서 조회하거나 처리할 데이터를 전달하는 역할을함!
 	
 	
 	

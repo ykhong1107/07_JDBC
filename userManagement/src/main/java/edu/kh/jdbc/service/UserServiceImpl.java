@@ -141,13 +141,19 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String selectKong(String str) throws Exception {
-		
+// public 공용접근제어자, 다른 클래스에서도 호출가능 String메서드가 반환하는 값의 타입
+// selectKong 메서드의 이름 -> str이라는 입력을 사용, "Kong"이라는 데이터를 선택하거나 조회하는 작업수행
+// String str = 메서드의 입력 매개변수로, 조회할 때 사용하는 문자열
 		Connection conn = getConnection();
-		
+// 데이터베이스와의 연결을 생성하는 메서드. 이 메서드는 'Connection'객체를 반환하며 데이터베이스와의
+// 상호작용을 위해 필요
 		String kong = dao.selectKong(conn, str);
-		
+// dao.selectKong(conn, str) : 'dao' 객체의 'selectKong' 메서드를 호출하여 데이터베이스에서
+// 정보를 조회함. 여기서 'dao'는 데이터베이스 작업을 수행하는 Date Access Object인스턴스를 나타냄.
+// 'conn' : 데이터베이스 연결객체를 'dao.selectKong' 메서드에 전달함
+// 'str' 조회에 사용할 문자열을 전달
+// 'kong' 조회된 결과를 저장하는 변수. 'dao.selectKong' 메서드는 String타입의 값을 반환, 이값은 kong변수에 저장
 		close(conn);
-		
 		
 		return kong;
 	}
