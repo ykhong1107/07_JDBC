@@ -7,11 +7,22 @@
 			<entry key="K"> V </entry>
 	 -->
 	 
-	 <!-- 사용자 등록 -->
+	 <!-- 사용자 전체조회 -->
 	 <entry key="todoListFullview">
 	 			SELECT * FROM TB_TODO
 	 </entry>
 					
+	 <!-- 사용자 추가 -->
+	 <entry key="todoAdd">
+	 			INSERT INTO TB_TODO	 			
+	 			VALUES(
+	 						 SEQ_TODO_NO.NEXTVAL,
+	 						 ?,
+	 						 ?,
+	 						 'Y',
+	 						 DEFAULT)
+	 </entry>
+						
 		
 		
 

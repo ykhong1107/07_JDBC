@@ -5,3 +5,5 @@
   바로 "/main"이라는 요청을 처리하는 Servlet으로 요청 위임
  --%>
 <jsp:forward page="/main"/>
+
+forward

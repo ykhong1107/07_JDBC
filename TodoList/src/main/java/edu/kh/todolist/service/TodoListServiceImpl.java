@@ -24,6 +24,25 @@ public class TodoListServiceImpl implements TodoListService{
 		return todoList;
 	}
 	
+	/**
+	 * 할일 추가하기
+	 */
+	@Override
+	public int todoAdd(String title, String detail) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		int result = dao.todoAdd(conn, title, detail);
+		
+		if(result > -1 ) commit(conn);
+		else 		   rollback(conn);
+				
+		// 자원 반환
+		close(conn);
+		
+		return result;
+	}
+	
 	
 	
 	

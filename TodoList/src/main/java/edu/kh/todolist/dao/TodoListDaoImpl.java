@@ -69,12 +69,13 @@ public class TodoListDaoImpl implements TodoListDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
+				int todoNo = rs.getInt("TODO_NO");
 				String todoTitle = rs.getString("TODO_TITLE");
 				String todoDetail = rs.getString("TODO_DETAIL");
 				boolean todoComplete = rs.getBoolean("TODO_COMPLETE");
 				String todoTime = rs.getString("TODO_TIME");
 				
-				Todo todo = new Todo(todoTitle, todoDetail, todoComplete, todoTime);
+				Todo todo = new Todo(todoNo, todoTitle, todoDetail, todoComplete, todoTime);
 				
 				todoList.add(todo);
 				
@@ -93,6 +94,28 @@ public class TodoListDaoImpl implements TodoListDao {
 		
 	}
 	
-	
+	@Override
+	public int todoAdd(Connection conn, String title, String detail) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("todoAdd");
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, detail);
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
 
 }

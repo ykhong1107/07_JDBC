@@ -16,6 +16,15 @@ public interface TodoListDao {
 	 * @return
 	 */
 	Map<String, Object> todoListFullview(Connection conn)throws Exception;
+
+	/**
+	 * 할일 추가
+	 * @param conn
+	 * @param title
+	 * @param detail
+	 * @return
+	 */
+	int todoAdd(Connection conn, String title, String detail)throws Exception;
 	
 	
 

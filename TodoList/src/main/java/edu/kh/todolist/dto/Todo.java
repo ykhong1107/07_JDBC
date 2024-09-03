@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Todo implements Serializable{
 							// 직렬화
 	
+	private int todoNo;
 	private String title;
 	private String detail;
     private boolean complete;
